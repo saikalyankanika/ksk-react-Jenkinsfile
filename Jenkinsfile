@@ -8,7 +8,7 @@ pipeline {
             steps {
                 script {
 
-                    sh '''rm -rf ${env.WORKSPACE}/*'''
+                    sh "rm -rf ${env.WORKSPACE}/*"
                     // Clone the repository (shallow clone for efficiency)
                     sh 'git clone --no-checkout https://github.com/saikalyankanika/react-sample-ksk'
                     
