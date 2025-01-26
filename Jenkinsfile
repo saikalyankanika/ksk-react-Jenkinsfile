@@ -15,7 +15,7 @@ pipeline {
                     dir('repo'){sh 'git checkout HEAD cicd-config.yaml'}
 
                     // Read the YAML file
-                    def yamlFile = readFile(file: "${env.WORKSPACE}/cicd-config.yaml")
+                    def yamlFile = readFile(file: "${env.WORKSPACE}/repo/cicd-config.yaml")
 
                     // Manually parse the YAML file
                     yamlFile.split('\n').each { line ->
