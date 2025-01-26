@@ -1,0 +1,39 @@
+@Library('shared-pipeline@master') _
+
+pipeline {
+    agent none
+    stages {
+        stage('Pod Template') {
+            agent any // Allocate an agent for this stage
+            steps {
+                script {
+                    // Clone the repository (shallow clone for efficiency)
+                    sh 'git clone --no-checkout https://github.com/saikalyankanika/react-sample-ksk repo'
+                    
+                    sh 'git checkout HEAD cicd-config.yaml'
+
+                    // Read the YAML file
+                    def yamlFile = readFile(file: 'cicd-config.yaml')
+
+                    // Manually parse the YAML file
+                    yamlFile.split('\n').each { line ->
+                        if (line.trim()) { // Skip empty lines
+                            def (key, value) = line.split(':').collect { it.trim() }
+                            env."${key}" = value
+                            echo "${key} = ${value}"}}
+
+                    def output_work = env.WORKSPACE
+                    println "Current directory: ${output_work}"
+
+                    echo sh(script: 'env|sort', returnStdout: true)
+
+                    // init()
+
+                    // def initScript = new GroovyShell().parse(new File('init.groovy'))
+                    // initScript.call()
+                }
+            }
+        }
+    }
+}
+
