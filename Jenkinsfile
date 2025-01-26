@@ -10,9 +10,9 @@ pipeline {
 
                     sh "rm -rf ${env.WORKSPACE}/*"
                     // Clone the repository (shallow clone for efficiency)
-                    sh 'git clone --no-checkout https://github.com/saikalyankanika/react-sample-ksk'
+                    sh 'git clone --no-checkout https://github.com/saikalyankanika/react-sample-ksk repo'
                     
-                    sh 'git checkout HEAD cicd-config.yaml'
+                    dir('repo'){sh 'git checkout HEAD cicd-config.yaml'}
 
                     // Read the YAML file
                     def yamlFile = readFile(file: "${env.WORKSPACE}/cicd-config.yaml")
