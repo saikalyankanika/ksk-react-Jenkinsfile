@@ -3,7 +3,7 @@
 pipeline {
     agent none
     stages {
-        stage('Pod Template') {
+        stage('INIT') {
             agent any // Allocate an agent for this stage
             steps {
                 script {
@@ -29,10 +29,8 @@ pipeline {
 
                     echo sh(script: 'env|sort', returnStdout: true)
 
-                    // init()
+                    init("https://github.com/saikalyankanika/react-sample-ksk")
 
-                    // def initScript = new GroovyShell().parse(new File('init.groovy'))
-                    // initScript.call()
                 }
             }
         }
